@@ -2,8 +2,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Pages / Register - unemployment database management system</title>
   <meta content="" name="description">
@@ -27,20 +28,64 @@
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css" >
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.5.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  
 </head>
 
 <body>
 
   <main>
     <div class="container">
+    <?php
+        if (isset($_POST["submit"])) {
+           $fullName = $_POST["username"];
+           $email = $_POST["email"];
+           $password = $_POST["password"];
+           
+           $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+           $errors = array();
+           
+           if (empty($fullName) OR empty($email) OR empty($password)) {
+            array_push($errors,"All fields are required");
+           }
+           if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            array_push($errors, "Email is not valid");
+           }
+           if (strlen($password)<8) {
+            array_push($errors,"Password must be at least 8 charactes long");
+           }
+           
+           require_once "database.php";
+           $sql = "SELECT * FROM login_tab WHERE email = '$email'";
+           $result = mysqli_query($conn, $sql);
+           $rowCount = mysqli_num_rows($result);
+           if ($rowCount>0) {
+            array_push($errors,"Email already exists!");
+           }
+           if (count($errors)>0) {
+            foreach ($errors as  $error) {
+                echo "<div class='alert alert-danger'>$error</div>";
+            }
+           }else{
+                
+                $sql = "INSERT INTO login_tab (fullname, email, password) VALUES ( ?, ?, ? )";
+                $stmt = mysqli_stmt_init($conn);
+                $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
+                if ($prepareStmt) {
+                   mysqli_stmt_bind_param($stmt,"sss",$fullName, $email, $passwordHash);
+                   mysqli_stmt_execute($stmt);
+                   echo "<div class='alert alert-success'>You are registered successfully.</div>";
+                }else{
+                   die("Something went wrong");
+                }
+           }
+          
+
+        }
+        ?>
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
@@ -63,19 +108,10 @@
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
-                    </div>
+        
 
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                    </div>
-
+                  <form class="row g-3 needs-validation" action="pages-register.php" method="post"  >
+                    
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
@@ -83,6 +119,12 @@
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please choose a username.</div>
                       </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourEmail" class="form-label">Your Email</label>
+                      <input type="email" name="email" class="form-control" id="yourEmail" required>
+                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                     </div>
 
                     <div class="col-12">
@@ -99,10 +141,10 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                      <button class="btn btn-primary w-100" type="submit" name="submit">Create Account</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="pages-login.html">Log in</a></p>
+                      <p class="small mb-0">Already have an account? <a href="pages-login.php">Log in</a></p>
                     </div>
                   </form>
 
@@ -110,11 +152,8 @@
               </div>
 
               <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">Ankit Praveen</a>
+
+                Designed by Ankit & Praveen
               </div>
 
             </div>
@@ -126,7 +165,7 @@
     </div>
   </main><!-- End #main -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
