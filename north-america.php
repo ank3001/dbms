@@ -1,22 +1,24 @@
 <?php
 
-function connect(){
-    $mysqli = new mysqli('localhost', 'root', '', 'unemployment');
-    if($mysqli->connect_errno != 0){
-        return $mysqli->connect_error;
-    }else{
-        $mysqli->set_charset("utf8mb4");	
-    }
-    return $mysqli;
+function connect()
+{
+  $mysqli = new mysqli('localhost', 'root', '', 'unemployment');
+  if ($mysqli->connect_errno != 0) {
+    return $mysqli->connect_error;
+  } else {
+    $mysqli->set_charset("utf8mb4");
+  }
+  return $mysqli;
 }
 
-function getTables(){
-    $mysqli = connect();
-    $res = $mysqli->query("SELECT * FROM north_america ");
-    while($row = $res->fetch_assoc()){
-        $tables[] = $row;
-    }
-    return $tables;
+function getTables()
+{
+  $mysqli = connect();
+  $res = $mysqli->query("SELECT * FROM north_america ");
+  while ($row = $res->fetch_assoc()) {
+    $tables[] = $row;
+  }
+  return $tables;
 }
 ?>
 <!DOCTYPE html>
@@ -36,7 +38,9 @@ function getTables(){
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -58,54 +62,14 @@ function getTables(){
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="http://localhost/dropdownTab/pravGit/dbms/index.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Unemployment Database Management System</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
 
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
 
@@ -115,7 +79,7 @@ function getTables(){
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -198,7 +162,7 @@ function getTables(){
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/users-profile.php">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
@@ -213,7 +177,7 @@ function getTables(){
       <h1>North America</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="http://localhost/dropdownTab/pravGit/dbms/index.php">Home</a></li>
           <li class="breadcrumb-item">Tables</li>
           <li class="breadcrumb-item active">North America</li>
         </ol>
@@ -225,42 +189,50 @@ function getTables(){
         <div class="card-body">
           <h5 class="card-title">The following table shows the Unemployment rate of countries of North America</h5>
 
-              <!-- Table with hoverable rows -->
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Global-rank</th>
-                    <th scope="col">Countries</th>
-                    <th scope="col">Unemployment_rate</th>
-                    <th scope="col">Available_data</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php 
-				    $tables = getTables();
-				    foreach ($tables as $tab) {
-					    ?>
-						    <div class="product">
-							
-							    <div class="right">
-								
-                          <tr>
-                            <td class="global"><?php echo $tab['Global_rank']; ?></td>
-								            <td class="country"><?php echo $tab['Countries'] ;?></td>
-								            <td class="rate"><?php echo $tab['Unemployment_rate'] ;?></td>
-                            <td class="year"><?php echo $tab['Available_data'] ;?></td>
-                          </tr>
-                               
-							    </div>
-						    </div>
+          <!-- Table with hoverable rows -->
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Global-rank</th>
+                <th scope="col">Countries</th>
+                <th scope="col">Unemployment_rate</th>
+                <th scope="col">Available_data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $tables = getTables();
+              foreach ($tables as $tab) {
+                ?>
+                <div class="product">
+
+                  <div class="right">
+
+                    <tr>
+                      <td class="global">
+                        <?php echo $tab['Global_rank']; ?>
+                      </td>
+                      <td class="country">
+                        <?php echo $tab['Countries']; ?>
+                      </td>
+                      <td class="rate">
+                        <?php echo $tab['Unemployment_rate']; ?>
+                      </td>
+                      <td class="year">
+                        <?php echo $tab['Available_data']; ?>
+                      </td>
+                    </tr>
+
+                  </div>
+                </div>
                 </tr>
-					    <?php
-				    }
-			    ?>
-                </tbody>
-              </table>
-              <!-- End Table with hoverable rows -->
-            </div>
+                <?php
+              }
+              ?>
+            </tbody>
+          </table>
+          <!-- End Table with hoverable rows -->
+        </div>
       </div>
     </section>
 
@@ -276,7 +248,8 @@ function getTables(){
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

@@ -1,3 +1,19 @@
+<?php require_once("database.php");
+if(!isset($_SESSION["login_sess"])) 
+{
+    header("location:pages-login.php"); 
+}
+  $email=$_SESSION["login_email"];
+  $findresult = mysqli_query($dbc, "SELECT * FROM user WHERE email= '$email'");
+if($res = mysqli_fetch_array($findresult))
+{
+$username = $res['username']; 
+$fname = $res['fname'];   
+$lname = $res['lname'];  
+$email = $res['email'];  
+$image= $res['image'];
+}
+ ?> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +21,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>World map</title>
+  <title>Unemployment Database Management System</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,6 +44,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -53,7 +70,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/index.php">
+        <a class="nav-link " href="http://localhost/dropdownTab/pravGit/dbms/index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -73,12 +90,12 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Maps</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="world-map.html" class="active">
+            <a href="world-map.html">
               <i class="bi bi-circle"></i><span>World map</span>
             </a>
           </li>
@@ -145,7 +162,7 @@
           </li>
         </ul>
       </li><!-- End Charts Nav -->
-
+      
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
@@ -154,6 +171,34 @@
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-register.php">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li><!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/logout.php">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Logout</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/admin.php">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Admin</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="https://www.naukri.com/">
+          <i class="ri-search-line"></i>
+          <span>Unemployment Solutions</span>
+        </a>
+      </li>
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -161,33 +206,30 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>World map</h1>
+      <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/dropdownTab/pravGit/dbms/index.php">Home</a></li>
-          <li class="breadcrumb-item">Maps</li>
-          <li class="breadcrumb-item active">World map</li>
+          <li class="breadcrumb-item active">Dashboard</li>
         </ol>
+        <section id="hero">
+          <div class="hero-container" data-aos="fade-up" data-aos-delay="150">
+            <h2>Unemployment Database Management System</h2>
+            <h3>"Welcome to the Unemployment Database Management System. Here you will find the latest information and data on unemployment rates and statistics. We hope that this resource will be helpful to you in your research and understanding of the current job market. Thank you for visiting."</h3>
+          </div>
+        </section>
       </nav>
-    </div><!-- End Page Title -->
+     </div><!-- End Page Title -->
 
-    <section class="section">
+    <section class="section dashboard">
       <div class="row">
 
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">World map</h5>
-              <p>The Map below gives brief details about many Countries and their Unemployment Rates</p>
-              <object data="map3.svg" type="image/svg+xml">
-                <img src="C:\xampp2\htdocs\NiceAdmin\map3.svg">
-              </object>
-              <svg viewBox="0 0 1000 1000" width="1000" height="1000">
-            </svg>
-           </div>
-          </div>
-        </div>
-      </div>    
+          </div><!-- End Left side columns -->
+      </div>
     </section>
 
   </main><!-- End #main -->
@@ -198,7 +240,7 @@
       &copy; Copyright <strong><span>Unemployment Database Management System</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      Designed by Ankit Praveen
+      Designed by Ankit & Praveen
     </div>
   </footer><!-- End Footer -->
 

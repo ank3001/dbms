@@ -1,10 +1,8 @@
 <?php
-
-$host = "localhost";
-$user = "root";
-$dbpass = "";
-$dbname = "user_login";
-$conn = mysqli_connect($host, $user, $dbpass, $dbname);
-
-
+session_start();
+$dbHost = 'localhost';
+$dbName = 'userdb';
+$dbUsername = 'root';
+$dbPassword = '';
+$dbc= mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName); 
 ?>

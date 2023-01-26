@@ -37,44 +37,7 @@
 
   <main>
     <div class="container">
-    <?php
-$login = false;
-$showError = false;
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    include 'database.php';
-    $email = $_POST["email"];
-    $password = $_POST["password"]; 
     
-     
-    // $sql = "Select * from users where username='$username' AND password='$password'";
-    $sql = "Select * from login_tab where email='$email'";
-    $result = mysqli_query($conn, $sql);
-    $num = mysqli_num_rows($result);
-    if ($num == 1){
-        while($row=mysqli_fetch_assoc($result)){
-            if (password_verify($password, $row['password'])){ 
-                $login = true;
-                session_start();
-                $_SESSION['loggedin'] = true;
-                $_SESSION['email'] = $email;
-                header("location: http://127.0.0.1:5500/index.html");
-               
-            } 
-            else{
-                $showError = "Invalid Credentials";
-                echo "<div class='alert alert-danger'>Incorrect Password.</div>";
-            }
-        }
-        
-    } 
-    else{
-        $showError = "Invalid Credentials";
-        echo "<div class='alert alert-danger'>Incorrect Email.</div>";
-    }
-}
-    
-?>
-
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
@@ -96,14 +59,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" method="post"  action="pages-login.php">
-
+                  <form class="row g-3 needs-validation" method="post"  action="login_process.php">
+                  <?php 
+                  if(isset($_GET['loginerror'])) {
+	                    $loginerror=$_GET['loginerror'];
+                  }
+                  if(!empty($loginerror)){  echo '<p class="errmsg">Invalid login credentials, Please Try Again..</p>'; } ?>
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Email</label>
+                      <label for="yourUsername" class="form-label">Email or Username</label>
                       <div class="input-group has-validation">
                         
-                        <input type="text" name="email" class="form-control" id="yourEmail" required>
-                        <div class="invalid-feedback">Please enter your email.</div>
+                        <input type="text" name="login_var" value="<?php if(!empty($loginerror)){ echo  $loginerror; } ?>"class="form-control" id="yourEmail" required>
+                        <div class="invalid-feedback">Please enter your email or username.</div>
                       </div>
                     </div>
 
@@ -112,15 +79,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
-
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <button name="sublogin" class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Don't have account? <a href="pages-register.php">Create an account</a></p>

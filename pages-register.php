@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<?php require_once("database.php"); ?>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,54 +38,6 @@
 
   <main>
     <div class="container">
-    <?php
-        if (isset($_POST["submit"])) {
-           $fullName = $_POST["username"];
-           $email = $_POST["email"];
-           $password = $_POST["password"];
-           
-           $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-           $errors = array();
-           
-           if (empty($fullName) OR empty($email) OR empty($password)) {
-            array_push($errors,"All fields are required");
-           }
-           if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            array_push($errors, "Email is not valid");
-           }
-           if (strlen($password)<8) {
-            array_push($errors,"Password must be at least 8 charactes long");
-           }
-           
-           require_once "database.php";
-           $sql = "SELECT * FROM login_tab WHERE email = '$email'";
-           $result = mysqli_query($conn, $sql);
-           $rowCount = mysqli_num_rows($result);
-           if ($rowCount>0) {
-            array_push($errors,"Email already exists!");
-           }
-           if (count($errors)>0) {
-            foreach ($errors as  $error) {
-                echo "<div class='alert alert-danger'>$error</div>";
-            }
-           }else{
-                
-                $sql = "INSERT INTO login_tab (fullname, email, password) VALUES ( ?, ?, ? )";
-                $stmt = mysqli_stmt_init($conn);
-                $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
-                if ($prepareStmt) {
-                   mysqli_stmt_bind_param($stmt,"sss",$fullName, $email, $passwordHash);
-                   mysqli_stmt_execute($stmt);
-                   echo "<div class='alert alert-success'>You are registered successfully.</div>";
-                }else{
-                   die("Something went wrong");
-                }
-           }
-          
-
-        }
-        ?>
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
@@ -100,6 +52,82 @@
               </div><!-- End Logo -->
 
               <div class="card mb-3">
+              <?php 
+ if(isset($_POST['signup'])){
+  extract($_POST);
+  if(strlen($fname)<3){ // Minimum 
+      $error[] = 'Please enter First Name using 3 charaters atleast.';
+        }
+if(strlen($fname)>20){  // Max 
+      $error[] = 'First Name: Max length 20 Characters Not allowed';
+        }
+if(!preg_match("/^[A-Za-z _]*[A-Za-z ]+[A-Za-z _]*$/", $fname)){
+            $error[] = 'Invalid Entry First Name. Please Enter letters without any Digit or special symbols like ( 1,2,3#,$,%,&,*,!,~,`,^,-,)';
+        }    
+if(strlen($lname)<3){ // Minimum 
+      $error[] = 'Please enter Last Name using 3 charaters atleast.';
+        }
+if(strlen($lname)>20){  // Max 
+      $error[] = 'Last Name: Max length 20 Characters Not allowed';
+        }
+if(!preg_match("/^[A-Za-z _]*[A-Za-z ]+[A-Za-z _]*$/", $lname)){
+            $error[] = 'Invalid Entry Last Name. Please Enter letters without any Digit or special symbols like ( 1,2,3#,$,%,&,*,!,~,`,^,-,)';
+              }    
+      if(strlen($username)<3){ // Change Minimum Lenghth   
+            $error[] = 'Please enter Username using 3 charaters atleast.';
+        }
+  if(strlen($username)>50){ // Change Max Length 
+            $error[] = 'Username : Max length 50 Characters Not allowed';
+        }
+  if(!preg_match("/^^[^0-9][a-z0-9]+([_-]?[a-z0-9])*$/", $username)){
+            $error[] = 'Invalid Entry for Username. Enter lowercase letters without any space and No number at the start- Eg - myusername, okuniqueuser or myusername123';
+        }  
+if(strlen($email)>50){  // Max 
+            $error[] = 'Email: Max length 50 Characters Not allowed';
+        }
+   if($passwordConfirm ==''){
+            $error[] = 'Please confirm the password.';
+        }
+        if($password != $passwordConfirm){
+            $error[] = 'Passwords do not match.';
+        }
+          if(strlen($password)<5){ // min 
+            $error[] = 'The password is 6 characters long.';
+        }
+        
+         if(strlen($password)>20){ // Max 
+            $error[] = 'Password: Max length 20 Characters Not allowed';
+        }
+          $sql="select * from user where (username='$username' or email='$email');";
+      $res=mysqli_query($dbc,$sql);
+   if (mysqli_num_rows($res) > 0) {
+$row = mysqli_fetch_assoc($res);
+
+     if($username==$row['username'])
+     {
+           $error[] ='Username alredy Exists.';
+          } 
+       if($email==$row['email'])
+       {
+            $error[] ='Email alredy Exists.';
+          } 
+      }
+         if(!isset($error)){ 
+              $date=date('Y-m-d');
+            $options = array("cost"=>4);
+    $password = password_hash($password,PASSWORD_BCRYPT,$options);
+            
+            $result = mysqli_query($dbc,"INSERT into user(fname,lname,username,email,password,date) values('$fname','$lname','$username','$email','$password','$date')");
+
+           if($result){
+     $done=2; 
+    }
+    else{
+      $error[] ='Failed : Something went wrong';
+    }
+ }
+ } ?>
+
 
                 <div class="card-body">
 
@@ -107,12 +135,31 @@
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
-
+                  <?php if(isset($done)) 
+      { ?>
+    <div class="successmsg"><span style="font-size:100px;">&#9989;</span> <br> You have registered successfully . <br> <a href="http://localhost/dropdownTab/pravGit/dbms/pages-login.php" style="color:#fff;">Login here... </a> </div>
+      <?php } else { ?>
         
 
                   <form class="row g-3 needs-validation" action="pages-register.php" method="post"  >
                     
+                  <div class="col-12">
+                      <label for="FirstName" class="form-label">FirstName</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" name="fname" class="form-control" id="yourUsername" required>
+                        <div class="invalid-feedback">Please choose a firstname.</div>
+                      </div>
+                    </div>
                     <div class="col-12">
+                      <label for="LastName" class="form-label">LastName</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" name="lname" class="form-control" id="yourUsername" required>
+                        <div class="invalid-feedback">Please choose a lastname.</div>
+                      </div>
+                    </div>  
+                  <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
@@ -132,22 +179,19 @@
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
-
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
+                      <label for="yourPassword" class="form-label">PasswordConfirm</label>
+                      <input type="password" name="passwordConfirm" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">Please confirm your password!</div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit" name="submit">Create Account</button>
+                      <button class="btn btn-primary w-100" type="submit" name="signup">Create Account</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Already have an account? <a href="pages-login.php">Log in</a></p>
                     </div>
                   </form>
-
+                <?php }?>
                 </div>
               </div>
 
