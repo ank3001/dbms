@@ -64,15 +64,7 @@ if(strlen($fname)>20){  // Max
 if(!preg_match("/^[A-Za-z _]*[A-Za-z ]+[A-Za-z _]*$/", $fname)){
             $error[] = 'Invalid Entry First Name. Please Enter letters without any Digit or special symbols like ( 1,2,3#,$,%,&,*,!,~,`,^,-,)';
         }    
-if(strlen($lname)<3){ // Minimum 
-      $error[] = 'Please enter Last Name using 3 charaters atleast.';
-        }
-if(strlen($lname)>20){  // Max 
-      $error[] = 'Last Name: Max length 20 Characters Not allowed';
-        }
-if(!preg_match("/^[A-Za-z _]*[A-Za-z ]+[A-Za-z _]*$/", $lname)){
-            $error[] = 'Invalid Entry Last Name. Please Enter letters without any Digit or special symbols like ( 1,2,3#,$,%,&,*,!,~,`,^,-,)';
-              }    
+
       if(strlen($username)<3){ // Change Minimum Lenghth   
             $error[] = 'Please enter Username using 3 charaters atleast.';
         }
@@ -117,7 +109,7 @@ $row = mysqli_fetch_assoc($res);
             $options = array("cost"=>4);
     $password = password_hash($password,PASSWORD_BCRYPT,$options);
             
-            $result = mysqli_query($dbc,"INSERT into user(fname,lname,username,email,password,date) values('$fname','$lname','$username','$email','$password','$date')");
+            $result = mysqli_query($dbc,"INSERT into user(fname,username,email,password,date) values('$fname','$username','$email','$password','$date')");
 
            if($result){
      $done=2; 
@@ -137,32 +129,23 @@ $row = mysqli_fetch_assoc($res);
                   </div>
                   <?php if(isset($done)) 
       { ?>
-    <div class="successmsg"><span style="font-size:100px;">&#9989;</span> <br> You have registered successfully . <br> <a href="http://localhost/dropdownTab/pravGit/dbms/pages-login.php" style="color:#fff;">Login here... </a> </div>
+    <div class="successmsg"><span style="font-size:100px;">&#9989;</span> <br> You have registered successfully . <br> <a href="http://localhost/dropdownTab/pravGit/dbms/pages-login.php" style="color:black;">Login here... </a> </div>
       <?php } else { ?>
         
 
                   <form class="row g-3 needs-validation" action="pages-register.php" method="post"  >
                     
                   <div class="col-12">
-                      <label for="FirstName" class="form-label">FirstName</label>
+                      <label for="FirstName" class="form-label">FullName</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="fname" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please choose a firstname.</div>
                       </div>
                     </div>
-                    <div class="col-12">
-                      <label for="LastName" class="form-label">LastName</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="lname" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a lastname.</div>
-                      </div>
-                    </div>  
+                    
                   <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please choose a username.</div>
                       </div>

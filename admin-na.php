@@ -112,7 +112,7 @@ function getTables()
                 </a>
                 <ul id="tables-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="admin-wt.php" class="active">
+                        <a href="admin-wt.php">
                             <i class="bi bi-circle"></i><span>World Table</span>
                         </a>
                     </li>
@@ -137,7 +137,7 @@ function getTables()
                         </a>
                     </li>
                     <li>
-                        <a href="admin-na.php">
+                        <a href="admin-na.php"  class="active">
                             <i class="bi bi-circle"></i><span>North-America</span>
                         </a>
                     </li>

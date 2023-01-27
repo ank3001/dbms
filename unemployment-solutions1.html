@@ -1,17 +1,3 @@
-<?php require_once("database.php");
-if(!isset($_SESSION["login_sess"])) 
-{
-    header("location:pages-login.php"); 
-}
-  $email=$_SESSION["login_email"];
-  $findresult = mysqli_query($dbc, "SELECT * FROM user WHERE email= '$email'");
-if($res = mysqli_fetch_array($findresult))
-{
-$username = $res['username']; 
-$fname = $res['fname'];   
-$email = $res['email'];  
-}
- ?> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +37,7 @@ $email = $res['email'];
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="http://localhost/dropdownTab/pravGit/dbms/index.php" class="logo d-flex align-items-center">
+      <a href="index.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Unemployment Database Management System</span>
       </a>
@@ -59,7 +45,6 @@ $email = $res['email'];
     </div><!-- End Logo -->
 
     
-
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
@@ -68,7 +53,7 @@ $email = $res['email'];
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="http://localhost/dropdownTab/pravGit/dbms/index.php">
+        <a class="nav-link " href="index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -160,36 +145,22 @@ $email = $res['email'];
           </li>
         </ul>
       </li><!-- End Charts Nav -->
-      
+
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/users-profile.php">
+        <a class="nav-link collapsed" href="users-profile.php">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.php">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
+        <a class="nav-link collapsed" href="FAQ.html">
+          <i class="bi bi-question-circle"></i>
+          <span>F.A.Q</span>
         </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/logout.php">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Logout</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/admin.php">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Admin</span>
-        </a>
-      </li>
+      </li><!-- End F.A.Q Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="unemployment-solutions1.html">
@@ -197,13 +168,7 @@ $email = $res['email'];
           <span>Unemployment Solutions</span>
         </a>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="FAQ.html">
-          <i class="ri-search-line"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li>
+    </ul>
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -211,30 +176,110 @@ $email = $res['email'];
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>Cards</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="http://localhost/dropdownTab/pravGit/dbms/index.php">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+          
+          <li class="breadcrumb-item active">unemployment-solutions</li>
         </ol>
-        <section id="hero">
-          <div class="hero-container" data-aos="fade-up" data-aos-delay="150">
-            <h2>Unemployment Database Management System</h2>
-            <h3>"Welcome to the Unemployment Database Management System. Here you will find the latest information and data on unemployment rates and statistics. We hope that this resource will be helpful to you in your research and understanding of the current job market. Thank you for visiting."</h3>
-          </div>
-        </section>
       </nav>
-     </div><!-- End Page Title -->
+    </div><!-- End Page Title -->
 
-    <section class="section dashboard">
-      <div class="row">
+    <section class="section">
+      <div class="row align-items-top">
 
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          <div class="row">
+          <!-- Card with naukari.com-->
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="assets\img\naukri.png" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Naukari.com</h5>
+                  <p class="card-text">Naukri.com is one of the most popular job search websites in India, which provides a wide variety of job listings across different industries and levels of experience. It is a great platform for job seekers as it has a huge database of job opportunities from various industries like IT, Engineering, Banking, Medical, Sales and many more.</p> 
+                        <p>Are you looking for a new job opportunity? Look no further! Naukri.com is the perfect platform to search for your dream job. Sign up now to get your dream job </p>
+                  <p class="card-button"><a href="https://www.naukri.com" class="btn btn-primary">Apply here</a></p>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Card with naukari.com -->
 
-          </div><!-- End Left side columns -->
-      </div>
+          <!-- Card with linkedin-->
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="assets\img\ld.png" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Linkedin</h5>
+                  <p class="card-text">LinkedIn is a professional networking site that is widely used for job search and career development. It is a platform where users can create a professional profile, connect with other professionals, and search for job opportunities. It has a large number of job listings from various industries, including many that are not found on other job search websites. LinkedIn allows users to search for jobs based on location, industry, and job type, making it easy for them to find the right job for them.</p> 
+                        <p>Are you ready to take your career to the next level? Sign up for LinkedIn and access a vast network of job opportunities and professional connections.</p>
+                  <p class="card-button"><a href="https://www.linkedin.com/" class="btn btn-primary">Apply here</a></p>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Card with linkedin -->
+
+          <!-- Card with internshala-->
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="assets\img\is.png" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Internshala</h5>
+                  <p class="card-text">Internshala also provides students with career-related resources such as resume building, interview tips, and mentorship opportunities, to help them make informed decisions about their career. The website has a user-friendly interface and allows users to search for internships based on location, industry, and job type, making it easy for them to find the right internship for them.</p> 
+                        <p>Are you a student looking for an internship opportunity? Look no further! Sign up now and take the first step towards gaining industry experience and building your professional network</p>
+                  <p class="card-button"><a href="https://internshala.com/" class="btn btn-primary">Apply here</a></p>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Card with internshala -->
+
+          <!-- Card with indeed-->
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="assets\img\indeed.png" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Indeed</h5>
+                  <p class="card-text">Indeed is a global job search website that has a large number of job listings in India. It's a platform that allows job seekers to search for jobs across different industries and levels of experience. It also allows job seekers to filter their search by location, job type, experience level and salary. Indeed is a great platform for job seekers as it offers them a wide variety of options and an easy to use interface.</p> 
+                        <p>Are you looking for a job opportunity? Look no further! Sign up now and take the first step towards your dream job</p>
+                  <p class="card-button"><a href="https://in.indeed.com" class="btn btn-primary">Apply here</a></p>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Card with indeed -->
+
+          <!-- Card with glassdoor-->
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="assets\img\gd.png" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Glassdoor</h5>
+                  <p class="card-text">Glassdoor is a website that provides information on companies, including reviews and salary data, in addition to job listings. It allows job seekers to search for jobs based on location, industry, and job type, making it easy for them to find the right job for them. Additionally, it also allows job seekers to research about the companies and the workplace culture before applying for the job. It is a great platform for job seekers to make an informed decision about their career..</p> 
+                        <p>Are you looking for a job opportunity? Look no further! Sign up now and take the first step towards your dream job</p>
+                  <p class="card-button"><a href="https://www.glassdoor.co.in" class="btn btn-primary">Apply here</a></p>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Card with glassdoor -->
+
+           
+
+        </div>
+
+    </div>
+  </div>
     </section>
 
   </main><!-- End #main -->
@@ -245,7 +290,7 @@ $email = $res['email'];
       &copy; Copyright <strong><span>Unemployment Database Management System</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      Designed by Ankit & Praveen
+      Designed by Ankit & praveen</a>
     </div>
   </footer><!-- End Footer -->
 

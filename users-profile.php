@@ -7,9 +7,12 @@ $findresult = mysqli_query($dbc, "SELECT * FROM user WHERE email= '$email'");
 if ($res = mysqli_fetch_array($findresult)) {
   $username = $res['username'];
   $fname = $res['fname'];
-  $lname = $res['lname'];
   $email = $res['email'];
-  $image = $res['image'];
+  $role = $res['role'];
+  $country = $res['country'];
+  $addr = $res['address'];
+  $phone = $res['phone'];
+
 }
 ?>
 
@@ -54,7 +57,7 @@ if ($res = mysqli_fetch_array($findresult)) {
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="http://localhost/dropdownTab/pravGit/dbms/index.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Unemployment Database Management System</span>
       </a>
@@ -199,11 +202,25 @@ if ($res = mysqli_fetch_array($findresult)) {
     </li><!-- End Logout Page Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="https://www.naukri.com/">
-        <i class="ri-search-line"></i>
-        <span>Unemployment Solutions</span>
-      </a>
-    </li>
+        <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/admin.php">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Admin</span>
+        </a>
+      </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="unemployment-solutions1.html">
+          <i class="ri-search-line"></i>
+          <span>Unemployment Solutions</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="FAQ.html">
+          <i class="ri-search-line"></i>
+          <span>F.A.Q</span>
+        </a>
+      </li>
 
     </ul>
 
@@ -228,25 +245,18 @@ if ($res = mysqli_fetch_array($findresult)) {
 
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-              <?php if ($image == NULL) {
+              <?php 
                 //echo '<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">';
                 echo '<img src="https://technosmarter.com/assets/icon/user.png">';
-              } else {
-                echo '<img src="C:\xampp\htdocs\img\"' . $image;
-              } ?>
+               ?>
               <!--<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">-->
               <h2>
                 <?php echo $fname; ?>
               </h2>
               <h3>
-                <?php echo $lname; ?>
+                <?php echo $username; ?>
               </h3>
-              <div class="social-links mt-2">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div>
+
             </div>
           </div>
 
@@ -334,37 +344,38 @@ if ($res = mysqli_fetch_array($findresult)) {
                   <h5 class="card-title">Profile Details</h5>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Full Name<br>
-                      <?php echo $fname; ?>
+                    <div class="col-lg-3 col-md-4 label " style="color: black;">Full Name: &ensp;<strong><?php echo $fname; ?></strong>
                     </div>
-                    <div class="col-lg-9 col-md-8"></div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Job</div>
-                    <div class="col-lg-9 col-md-8"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Country</div>
-                    <div class="col-lg-9 col-md-8"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Address</div>
-                    <div class="col-lg-9 col-md-8"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                    <div class="col-lg-9 col-md-8"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Email<br>
-                      <?php echo $username; ?>
+                    <div class="col-lg-3 col-md-4 label" style="color: black;">Job: &ensp;<strong><?php echo $role; ?></strong>
                     </div>
-                    <div class="col-lg-9 col-md-8"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label" style="color: black;">Country: &ensp;<strong><?php echo $country; ?></strong>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label" style="color: black;">Address: &ensp; <strong><?php echo $addr; ?></strong>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label" style="color: black;">Phone: &ensp;<strong><?php echo $phone; ?></strong>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label" style="color: black;">Username: &ensp;<strong><?php echo $username; ?></strong>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label" style="width: 500px; color: black;">Email: &ensp;<strong><?php echo $email; ?></strong>
+                    </div>
                   </div>
 
                 </div>
@@ -378,36 +389,24 @@ if ($res = mysqli_fetch_array($findresult)) {
                   $username = $res['username'];
                   $oldusername = $res['username'];
                   $fname = $res['fname'];
-                  $lname = $res['lname'];
                   $email = $res['email'];
-                  $image = $res['image'];
+                  $role = $res['role'];
+                  $country = $res['country'];
+                  $addr = $res['address'];
+                  $phone = $res['phone'];
+
                 }
                 ?>
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                   <?php
                   if (isset($_POST['update_profile'])) {
                     $fname = $_POST['fullname'];
-
+                    $country = $_POST['country'];
                     $username = $_POST['username'];
-                    $folder = '"C:\xampp\htdocs\img"';
-                    $file = $_FILES['image']['tmp_name'];
-                    $file_name = $_FILES['image']['name'];
-                    $file_name_array = explode(".", $file_name);
-                    $extension = end($file_name_array);
-                    $new_image_name = 'profile_' . rand() . '.' . $extension;
-                    if ($_FILES["image"]["size"] > 1000000) {
-                      $error[] = 'Sorry, your image is too large. Upload less than 1 MB in size .';
+                    $addr = $_POST['address'];
+                    $phone = $_POST['phone'];
+                    $role = $_POST['role'];
 
-                    }
-                    if ($file != "") {
-                      if (
-                        $extension != "jpg" && $extension != "png" && $extension != "jpeg"
-                        && $extension != "gif" && $extension != "PNG" && $extension != "JPG" && $extension != "GIF" && $extension != "JPEG"
-                      ) {
-
-                        $error[] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed';
-                      }
-                    }
 
                     $sql = "SELECT * from user where username='$username'";
                     $res = mysqli_query($dbc, $sql);
@@ -421,18 +420,11 @@ if ($res = mysqli_fetch_array($findresult)) {
                       }
                     }
                     if (!isset($error)) {
-                      if ($file != "") {
-                        $stmt = mysqli_query($dbc, "SELECT image FROM  user WHERE email='$email'");
-                        $row = mysqli_fetch_array($stmt);
-                        $deleteimage = $row['image'];
-                        unlink($folder . $deleteimage);
-                        move_uploaded_file($file, $folder . $new_image_name);
-                        mysqli_query($dbc, "UPDATE user SET image='$new_image_name' WHERE email='$email'");
-                      }
-                      $result = mysqli_query($dbc, "UPDATE user SET fname='$fname',username='$username' WHERE email='$email'");
+
+                      $result = mysqli_query($dbc, "UPDATE user SET fname='$fname',username='$username', role='$role', country='$country', address='$addr', phone='$phone' WHERE email='$email'");
                       if ($result) {
-                        echo "<div class='alert alert-success'>Password changed successfuly.</div>";
-                        header("location:http://localhost/dropdownTab/pravGit/dbms/users-profile.php?profile_updated=1");
+                        echo "<div class='alert alert-success'>Profile Updated successfuly.</div>";
+                       // header("location:http://localhost/dropdownTab/pravGit/dbms/users-profile.php?profile_updated=1");
                       } else {
                         $error[] = 'Something went wrong';
                       }
@@ -452,15 +444,6 @@ if ($res = mysqli_fetch_array($findresult)) {
                   ?>
                   <!-- Profile Edit Form -->
                   <form method="post" enctype='multipart/form-data' action="">
-                    <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                      <div class="col-md-8 col-lg-9">
-
-                        <label>Change Image &#8595;</label>
-                        <input class="form-control" type="file" name="image" style="width:100%;">
-
-                      </div>
-                    </div>
 
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
@@ -469,18 +452,11 @@ if ($res = mysqli_fetch_array($findresult)) {
                       </div>
                     </div>
 
-                    <div class="row mb-3">
-                      <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
-                      <div class="col-md-8 col-lg-9">
-                        <textarea name="about" class="form-control" id="about" style="height: 100px"
-                          required></textarea>
-                      </div>
-                    </div>
 
                     <div class="row mb-3">
                       <label for="Role" class="col-md-4 col-lg-3 col-form-label">Role</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="Role" type="text" class="form-control" id="Role" required>
+                        <input name="role" type="text" class="form-control" id="Role" required>
                       </div>
                     </div>
 
