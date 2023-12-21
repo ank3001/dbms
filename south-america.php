@@ -2,7 +2,7 @@
 
 function connect()
 {
-  $mysqli = new mysqli('localhost', 'root', '', 'unemployment');
+  $mysqli = new mysqli('localhost', 'root', '', 'unemp1');
   if ($mysqli->connect_errno != 0) {
     return $mysqli->connect_error;
   } else {

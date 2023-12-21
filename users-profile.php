@@ -187,12 +187,12 @@ if ($res = mysqli_fetch_array($findresult)) {
       </a>
     </li><!-- End Profile Page Nav -->
 
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link collapsed" href="pages-register.php">
         <i class="bi bi-card-list"></i>
         <span>Register</span>
       </a>
-    </li><!-- End Register Page Nav -->
+    </li>End Register Page Nav -->
 
     <li class="nav-item">
       <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/logout.php">
@@ -344,32 +344,32 @@ if ($res = mysqli_fetch_array($findresult)) {
                   <h5 class="card-title">Profile Details</h5>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label " style="color: black;">Full Name: &ensp;<strong><?php echo $fname; ?></strong>
+                    <div class="col-lg-3 col-md-4 label " style="width: 500px; color: black;">Full Name: &ensp;<strong><?php echo $fname; ?></strong>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label" style="color: black;">Job: &ensp;<strong><?php echo $role; ?></strong>
+                    <div class="col-lg-3 col-md-4 label" style="width: 500px; color: black;">Job: &ensp;<strong><?php echo $role; ?></strong>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label" style="color: black;">Country: &ensp;<strong><?php echo $country; ?></strong>
+                    <div class="col-lg-3 col-md-4 label" style="width: 500px; color: black;">Country: &ensp;<strong><?php echo $country; ?></strong>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label" style="color: black;">Address: &ensp; <strong><?php echo $addr; ?></strong>
+                    <div class="col-lg-3 col-md-4 label" style="width: 500px; color: black;">Address: &ensp; <strong><?php echo $addr; ?></strong>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label" style="color: black;">Phone: &ensp;<strong><?php echo $phone; ?></strong>
+                    <div class="col-lg-3 col-md-4 label" style="width: 500px; color: black;">Phone: &ensp;<strong><?php echo $phone; ?></strong>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label" style="color: black;">Username: &ensp;<strong><?php echo $username; ?></strong>
+                    <div class="col-lg-3 col-md-4 label" style="width: 500px; color: black;">Username: &ensp;<strong><?php echo $username; ?></strong>
                     </div>
                   </div>
 
@@ -406,6 +406,7 @@ if ($res = mysqli_fetch_array($findresult)) {
                     $addr = $_POST['address'];
                     $phone = $_POST['phone'];
                     $role = $_POST['role'];
+                    
 
 
                     $sql = "SELECT * from user where username='$username'";
@@ -448,7 +449,8 @@ if ($res = mysqli_fetch_array($findresult)) {
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullname" type="text" class="form-control" id="fullName" required>
+                        <input name="fullname" type="text" class="form-control" id="fullName" value="<?php echo $fname;?>" required>
+                        
                       </div>
                     </div>
 
@@ -456,35 +458,35 @@ if ($res = mysqli_fetch_array($findresult)) {
                     <div class="row mb-3">
                       <label for="Role" class="col-md-4 col-lg-3 col-form-label">Role</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="role" type="text" class="form-control" id="Role" required>
+                        <input name="role" type="text" class="form-control" id="Role" value="<?php echo $role;?>" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="country" type="text" class="form-control" id="Country" required>
+                        <input name="country" type="text" class="form-control" id="Country" value="<?php echo $country;?>" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" required>
+                        <input name="address" type="text" class="form-control" id="Address" value="<?php echo $addr;?>" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" required>
+                        <input name="phone" type="text" class="form-control" id="Phone" value="<?php echo $phone;?>" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Username</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="username" type="text" class="form-control" id="username" required>
+                        <input name="username" type="text" class="form-control" id="username" value="<?php echo $username;?>" required>
                       </div>
                     </div>
 

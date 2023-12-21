@@ -204,7 +204,7 @@ function getTables()
                 <div class="card-body">
                     <h5 class="card-title">The following is the list of countries and their unemployment rate </h5>
                     <div class="text-center">
-                        <a href="row.php"><button type="submit" class="btn btn-primary" name="new_row">Add
+                        <a href="sa-row.php"><button type="submit" class="btn btn-primary" name="new_row">Add
                                 row</button></a>
                     </div>
 
@@ -241,8 +241,8 @@ function getTables()
                                                 <?php echo $tab['Available_data']; ?>
                                             </td>
                                             <td>
-                                                <button><a href="update.php?updaterank=<?php echo $tab['Global_rank']?>">Update</a></button>
-                                                <button><a href="delete.php?deleterank=<?php echo $tab['Global_rank']?>">Delete</a></button>
+                                                <button><a href="sa-update.php?updaterank=<?php echo $tab['Global_rank']?>">Update</a></button>
+                                                <button><a href="sa-delete.php?deleterank=<?php echo $tab['Global_rank']?>">Delete</a></button>
                                             </td>
                                         </tr>
                                     </div>

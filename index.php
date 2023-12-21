@@ -170,12 +170,12 @@ $email = $res['email'];
         </a>
       </li><!-- End Profile Page Nav -->
 
-      <li class="nav-item">
+     <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="pages-register.php">
           <i class="bi bi-card-list"></i>
           <span>Register</span>
         </a>
-      </li><!-- End Register Page Nav -->
+      </li> End Register Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="http://localhost/dropdownTab/pravGit/dbms/logout.php">
